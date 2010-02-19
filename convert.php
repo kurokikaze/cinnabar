@@ -1,3 +1,10 @@
+﻿<?php
+
+function uniord($u) {
+    $c = unpack("N", mb_convert_encoding($u, 'UCS-4BE', 'UTF-8'));
+    return $c[1];
+}
+
 $text = <<<DORFFORT
 FPS: 99D*██████████████████████  Dwarf Fortress  █████████████████ Idlers: 8 ███
 █≈~..≈~≈~.``~≈.∞≈≈≈~,~`~'~≈.,≈.~~≈,~≈~.≈`~'≈≈≈~≈≈≈~,,≈~~≈≈,≈≈≈≈..~~"≈~.~`≈≈~≈≈~█
@@ -23,11 +30,18 @@ FPS: 99D*██████████████████████  Dwa
 ████████████████████████████████████████████████████████████████████████████████
 DORFFORT;
 
-$text_rows = explode($text, "\n");
+$text_rows = explode("\n", $text);
+echo 'rows: ' . count($text_rows);
+if ($rows > 30) {
+    die('Error slicing rows.');
+}
 
-for ($text_rows as $row) {
-	for ($i = 0; $i<80; $i++) {
-		echo '<class="back_BLACK fore_LRED">' . htmlentities($row[$i]) . '</span>';
+echo '&#' . uniord("╞") . ';';
+/*foreach ($text_rows as $row) {
+	// echo "<!-- $row -->";
+	for ($i = 0; $i < 80; $i++) {
+		echo '<span class="back_BLACK fore_LRED">&#' . uniord(mb_substr($row, $i, 1, 'UTF8')) . ';</span>';
 	}
 	echo '<br/>' . "\n";
-}
+}*/
+?>
