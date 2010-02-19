@@ -36,7 +36,7 @@ if ($rows > 30) {
     die('Error slicing rows.');
 }
 
-echo '&#' . uniord("╞") . ';';
+echo '&#' . uniord("=") . ';';
 /*foreach ($text_rows as $row) {
 	// echo "<!-- $row -->";
 	for ($i = 0; $i < 80; $i++) {
