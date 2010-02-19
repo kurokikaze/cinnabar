@@ -45,6 +45,25 @@
         'WHITE': [255,255,255]
     };
 
+    var standard_colors = {
+        'BLACK': [0,0,0],
+        'BLUE': [0, 0, 128],
+        'GREEN': [0, 128, 0],
+        'CYAN': [0, 128, 128],
+        'RED': [128, 0, 0],
+        'MAGENTA': [128, 0, 128],
+        'BROWN': [128, 128, 0],
+        'LGRAY': [192, 192, 192],
+        'DGRAY': [128, 128, 128],
+        'LBLUE': [145, 202, 255],
+        'LGREEN': [131, 212, 82],
+        'LCYAN': [176, 223, 215],
+        'LRED': [255, 34, 34],
+        'LMAGENTA': [255, 167, 246],
+        'YELLOW': [255,218,90],
+        'WHITE': [255,255,255]
+    };
+
     $(document).ready(function() {
 
 
@@ -54,24 +73,12 @@
 
         });
 
-        var standard_colors = {
-            'BLACK': [0,0,0],
-            'BLUE': [0, 0, 128],
-            'GREEN': [0, 128, 0],
-            'CYAN': [0, 128, 128],
-            'RED': [128, 0, 0],
-            'MAGENTA': [128, 0, 128],
-            'BROWN': [128, 128, 0],
-            'LGRAY': [192, 192, 192],
-            'DGRAY': [128, 128, 128],
-            'LBLUE': [145, 202, 255],
-            'LGREEN': [131, 212, 82],
-            'LCYAN': [176, 223, 215],
-            'LRED': [255, 34, 34],
-            'LMAGENTA': [255, 167, 246],
-            'YELLOW': [255,218,90],
-            'WHITE': [255,255,255]
-        };
+        $("input#get_standard_colors").bind('click', function(){
+
+            set_color_scheme(standard_colors);
+
+        });
+
     });
 </script>
 </head>
@@ -185,7 +192,9 @@ FPS: 99D*██████████████████████  Dwa
 [WHITE_B:255]
     </textarea>
 
-    <input type="button" value="Natural colors" id="get_natural_colors" />
+    <br/>
+    <input type="button" value="Natural colors" id="get_natural_colors" /><br/>
+    <input type="button" value="Standard colors" id="get_standard_colors" /><br/>
 
 </body>
 </html>
