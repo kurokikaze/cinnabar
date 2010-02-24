@@ -20,10 +20,19 @@
     var set_color_scheme = function(scheme) {
 
             var color;
+            var textdata = '';
+
             for (color in scheme) {
                 $(".back_" + color).css('background-color', 'rgb(' + scheme[color].join(',') + ')');
                 $(".fore_" + color).css('color', 'rgb(' + scheme[color].join(',') + ')');
+
+                textdata = textdata + "[" + color + '_R:' + scheme[color][0] + "]\n";
+                textdata = textdata + "[" + color + '_G:' + scheme[color][1] + "]\n";
+                textdata = textdata + "[" + color + '_B:' + scheme[color][2] + "]\n";
             }
+
+            $('#colorsettings').val(textdata);
+
     }
 
     var natural_colors = {
@@ -79,37 +88,24 @@
 
         });
 
+        $('input#show_df_text').bind('click', function() {
+            $('input#show_df_text').hide();
+            $('input#hide_df_text').show();
+            $('textarea#colorsettings').show();
+        });
+
+        $('input#hide_df_text').bind('click', function() {
+            $('input#show_df_text').show();
+            $('input#hide_df_text').hide();
+            $('textarea#colorsettings').hide();
+        });
+
     });
 </script>
 </head>
 <body>
 
 <!--
--->
-
-<!--
-FPS: 99D*██████████████████████  Dwarf Fortress  █████████████████ Idlers: 8 ███
-█≈~..≈~≈~.``~≈.∞≈≈≈~,~`~'~≈.,≈.~~≈,~≈~.≈`~'≈≈≈~≈≈≈~,,≈~~≈≈,≈≈≈≈..~~"≈~.~`≈≈~≈≈~█
-█≈≈~'~,~~~,≈≈≈~ ~,~≈≈≈~~'≈``~≈,,τ'~~≈`.~≈≈'.,~~',~~~~≈.∞τ~,,.,~~'≈≈≈',~~≈~≈~~~≈~0█
-≈≈≈~,'≈≈~≈≈`╞~.,~',~.'`~≈'~'≈'`≈.∞~`≈~≈¶∞≈~≈τ≈,'≈,~"≈`≈≈≈~τ,~'`.≈≈~~.≈≈.≈~.~≈,█
-█~~~≈."≈`'≈,≈.∞~~"~~τ≈≈~~~≈~.≈~≈≈≈~.~~~≈≈~~≈~~'≈≈,,≈≈.≈.≈`'~~`"''≈≈.~~~≈,.~∙'≈~█
-█~≈~≈≈≈~~,~....≈~~~≈,~.~~O═══════════════════╗.'`,~~≈≈,≈'~~`~`≈~≈≈≈≈..~~'`≈≈≈~~█
-█~≈,~≈≈~≈≈╞≈~"~..≈~≈≈~≈.≈≈≈∞≈~≈~≈≈~.~,≈≈~~τ,≈║`,'≈≈≈~~~≈"~≈≈~≈~≈~~≈¶≈~~,~,"`~.,█
-█~,~,≈~τ≈``~≈,'≈≈≈≈~.~"`'`≈.~.≈≈~,.≈~~~"≈≈~~~║≈≈~~.."≈'≈~~'τ~.'."'~≈~≈╞≈≈.~,≈≈.█
-█,τ.≈~≈~.~~,~.∞~..~"≈~~',~"~`~≈≈,≈.~•••••••≈~║.≈'~~'≈~≈.≈≈≈~`≈≈≈,`≈~`.`'≈~,`'≈'█
-█,~~`τ≈~≈≈,~≈∞≈≈,,~≈≈~≈.≈≈~≈.,≈~≈≈~.•••••••`~║≈≈~~'~~~~`~τ≈≈~,'≈~~,τ≈~'~≈`.≈~≈~█
-█`~~≈≈.≈≈~.~~~'O███O~~≈τ~'≈'≈.~~τ~~~•••••••~≈║',~≈"~∞≈≈≈..≈~≈≈"≈~≈≈~≈~`≈~"`,~"≈█
-█"'≈~`~..~~"'≈~█████≈▓▓▓≈≈≈.≈,≈`¢.≈~•••••••≈~║≈"~~.`≈≈"~~~≈≈~~~≈..~≈≈.≈∞~~~`~≈~█
-█≈≈≈≈≈≈~∞≈≈''~.██O██≈▓σ▓≈~.~¶`≈~≈≈~~',~≈,~~~≈║~~~≈,~≈≈~~≈≈≈≈`≈~≈τ≈≈~≈,~'≈~≈≈~~~█
-█'∞≈`~',~".≈`≈`█████`▓/▓~`~≈,~≈~≈"≈≈=====~.'"║~≈.~~"`~≈≈≈"`~τ''`',~≈~'~τ,~'"``~█
-█`≈~,,''≈≈≈~≈"~O███O~'≈~~≈~≈~≈≈≈`~~.====="~~"║~≈~~≈`∞`~≈τ≈,~≈~~≈≈,~≈"~'`~~≈'≈~~█
-█≈~≈≈,≈~≈≈~~≈,~~..~'"~~,≈~~'~τ~≈,≈~,≈.≈,~`≈'.║≈≈`~≈~.≈,'≈≈~.≈.~≈'≈`≈≈,≈'~~~~∞~≈█
-█≈~'~`'~≈≈≈~.~≈`≈,`≈≈O═══════════════════════╝"≈`~~~≈.≈`≈~`~"≈,≈τ≈~≈≈~'~'≈≈"~~≈█
-█~≈~.,¶,≈',~`≈.~≈~~~≈~','~≈≈'≈≈≈~.≈'≈`≈~~~≈~~≈`'.~~~≈≈≈~,',≈`≈'~,≈,~≈"~~τ~'≈≈~.█
-█~~≈~≈≈~≈~.~~τ`+≈~`¶'≈`~~,"~~≈≈.~~~~≈~~~,.~~`'~~`~"≈~~'~~.~≈~`"~~≈,~~~~,~≈≈,~≈~1
-█.≈~≈~~~`','~~≈~`≈≈≈≈≈~~≈≈≈~~≈∞≈`.,≈╞~≈'╞≈~'~≈."≈≈~~≈.≈`~τ≈.,'~≈~≈~≈`~~~~≈.~≈"~2
-█≈~≈≈▒.,`,`≈~~≈~~≈~~',.,~∞~~~≈≈≈≈~≈`'~∞≈'~``'≈~.,≈≈≈≈~.`≈∞~.~≈~≈".≈"`~≈."≈~≈`≈~8
-████████████████████████████████████████████████████████████████████████████████
 -->
 
     <div id="playfield">
@@ -140,6 +136,33 @@ FPS: 99D*██████████████████████  Dwa
         <span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#9618;</span><span class="back_BLACK fore_DGRAY">&#46;</span><span class="back_BLACK fore_DGRAY">&#44;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_DGRAY">&#44;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_DGRAY">&#39;</span><span class="back_BLACK fore_DGRAY">&#44;</span><span class="back_BLACK fore_DGRAY">&#46;</span><span class="back_BLACK fore_DGRAY">&#44;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_DGRAY">&#8734;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_DGRAY">&#39;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_DGRAY">&#8734;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_DGRAY">&#39;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_DGRAY">&#39;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_DGRAY">&#46;</span><span class="back_BLACK fore_DGRAY">&#44;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_BLUE">&#8776;</span><span class="back_BLACK fore_BLUE">&#126;</span><span class="back_BLACK fore_DGRAY">&#46;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_DGRAY">&#8734;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_DGRAY">&#46;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LGREEN">&#34;</span><span class="back_BLACK fore_DGRAY">&#46;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LGREEN">&#34;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_DGRAY">&#46;</span><span class="back_BLACK fore_LGREEN">&#34;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_DGRAY">&#96;</span><span class="back_BLACK fore_LRED">&#8776;</span><span class="back_BLACK fore_LRED">&#126;</span><span class="back_LGRAY fore_BLACK">&#56;</span><br/>
         <span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><span class="back_BLACK fore_DGRAY">&#9608;</span><br/>
     </div>
+
+    <table id="colorpicker">
+        <tr>
+            <td id="picker_BLACK" class="picker back_BLACK">&nbsp;</td><td id="picker_DGRAY" class="picker back_DGRAY">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="picker_BLUE" class="picker back_BLUE">&nbsp;</td><td id="picker_LBLUE" class="picker back_LBLUE">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="picker_GREEN" class="picker back_GREEN">&nbsp;</td><td id="picker_LGREEN" class="picker back_LGREEN">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="picker_CYAN" class="picker back_CYAN">&nbsp;</td><td id="picker_LCYAN" class="picker back_LCYAN">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="picker_RED" class="picker back_RED">&nbsp;</td><td id="picker_LRED" class="picker back_LRED">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="picker_MAGENTA" class="picker back_MAGENTA">&nbsp;</td><td id="picker_LMAGENTA" class="picker back_LMAGENTA">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="picker_BROWN" class="picker back_BROWN">&nbsp;</td><td id="picker_YELLOW" class="picker back_YELLOW">&nbsp;</td>
+        </tr>
+        <tr>
+            <td id="picker_LGRAY" class="picker back_LGRAY">&nbsp;</td><td id="picker_WHITE" class="picker back_WHITE">&nbsp;</td>
+        </tr>
+    </table>
 
     <textarea id="colorsettings" cols="80" rows="25">
 [BLACK_R:0]
@@ -192,6 +215,9 @@ FPS: 99D*██████████████████████  Dwa
 [WHITE_B:255]
     </textarea>
 
+    <br/>
+    <input type="button" value="Show text output" id="show_df_text" /><br/>
+    <input type="button" value="Hide text output" id="hide_df_text" /><br/>
     <br/>
     <input type="button" value="Natural colors" id="get_natural_colors" /><br/>
     <input type="button" value="Standard colors" id="get_standard_colors" /><br/>

@@ -4,6 +4,25 @@ div#playfield {
     line-height: 12px;
 }
 
+/* Show-hide text data for configs */
+
+textarea#colorsettings {
+    display: none;
+}
+
+input#hide_df_text {
+    display: none;
+}
+
+/* Color picker table */
+
+td.picker {
+    width: 150px;
+    height: 30px;
+    border: 1px solid black;
+
+}
+
 /* Eight backgrounds */
 .back_BLACK {
     background-color: #000000;
