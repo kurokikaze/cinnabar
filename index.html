@@ -21,11 +21,21 @@
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
 <script type="text/javascript" src="js/colorpicker.js"></script>
+
+<script src="http://yui.yahooapis.com/2.8.0r4/build/yahoo/yahoo-min.js" ></script>
+<script src="http://yui.yahooapis.com/2.8.0r4/build/stylesheet/stylesheet-min.js"></script>
+
 <script type="text/javascript">
 
+    var over_stylesheet = YAHOO.util.StyleSheet();
+
     var set_color = function(name, rgb) {
-        $(".back_" + name).css('background-color', 'rgb(' + rgb.join(',') + ')');
-        $(".fore_" + name).css('color', 'rgb(' + rgb.join(',') + ')');
+
+        // $('div#playfield').find("span.back_" + name).css('background-color', 'rgb(' + rgb.join(',') + ')');
+        // $('div#playfield').find("span.fore_" + name).css('color', 'rgb(' + rgb.join(',') + ')');
+
+        over_stylesheet.set(".back_" + name, 'background-color: rgb(' + rgb.join(',') + ')');
+        over_stylesheet.set(".fore_" + name, 'color: rgb(' + rgb.join(',') + ')');
     };
 
     var update_text_data = function(scheme) {
