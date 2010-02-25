@@ -148,7 +148,7 @@
             Initialises some class-global variables
         */
         function rtf( $data) {
-            $this->len = strlen( $data);
+            $this->len = strlen($data);
             $this->rtf = $data;
 
             $this->wantXML = false;

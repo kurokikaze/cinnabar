@@ -14,26 +14,58 @@
 <meta name="creation-date" content="19/02/2010">
 <meta name="revisit-after" content="15 days">
 <title>Cinnabar - color scheme editor for Dwarf Fortress</title>
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-<script>
+
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
+<link rel="stylesheet" media="screen" type="text/css" href="css/layout.css" />
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+<script type="text/javascript" src="js/colorpicker.js"></script>
+<script type="text/javascript">
+
+    var set_color = function(name, rgb) {
+        $(".back_" + name).css('background-color', 'rgb(' + rgb.join(',') + ')');
+        $(".fore_" + name).css('color', 'rgb(' + rgb.join(',') + ')');
+    }
+
     var set_color_scheme = function(scheme) {
 
             var color;
             var textdata = '';
 
             for (color in scheme) {
-                $(".back_" + color).css('background-color', 'rgb(' + scheme[color].join(',') + ')');
-                $(".fore_" + color).css('color', 'rgb(' + scheme[color].join(',') + ')');
+                    set_color(color, scheme[color]);
 
-                textdata = textdata + "[" + color + '_R:' + scheme[color][0] + "]\n";
-                textdata = textdata + "[" + color + '_G:' + scheme[color][1] + "]\n";
-                textdata = textdata + "[" + color + '_B:' + scheme[color][2] + "]\n";
+                    // $(".back_" + color).css('background-color', 'rgb(' + scheme[color].join(',') + ')');
+                    // $(".fore_" + color).css('color', 'rgb(' + scheme[color].join(',') + ')');
+
+                    textdata = textdata + "[" + color + '_R:' + scheme[color][0] + "]\n";
+                    textdata = textdata + "[" + color + '_G:' + scheme[color][1] + "]\n";
+                    textdata = textdata + "[" + color + '_B:' + scheme[color][2] + "]\n";
             }
 
             $('#colorsettings').val(textdata);
 
     }
+
+    var current_colors = {
+        'BLACK': [0,0,0],
+        'BLUE': [0, 0, 128],
+        'GREEN': [0, 128, 0],
+        'CYAN': [0, 128, 128],
+        'RED': [128, 0, 0],
+        'MAGENTA': [128, 0, 128],
+        'BROWN': [128, 128, 0],
+        'LGRAY': [192, 192, 192],
+        'DGRAY': [128, 128, 128],
+        'LBLUE': [0, 0, 255],
+        'LGREEN': [0, 255, 0],
+        'LCYAN': [0, 255, 255],
+        'LRED': [255, 0, 0],
+        'LMAGENTA': [255, 0, 255],
+        'YELLOW': [255,255,0],
+        'WHITE': [255,255,255]
+    };
 
     var natural_colors = {
         'BLACK': [0,0,0],
@@ -64,12 +96,12 @@
         'BROWN': [128, 128, 0],
         'LGRAY': [192, 192, 192],
         'DGRAY': [128, 128, 128],
-        'LBLUE': [145, 202, 255],
-        'LGREEN': [131, 212, 82],
-        'LCYAN': [176, 223, 215],
-        'LRED': [255, 34, 34],
-        'LMAGENTA': [255, 167, 246],
-        'YELLOW': [255,218,90],
+        'LBLUE': [0, 0, 255],
+        'LGREEN': [0, 255, 0],
+        'LCYAN': [0, 255, 255],
+        'LRED': [255, 0, 0],
+        'LMAGENTA': [255, 0, 255],
+        'YELLOW': [255,255,0],
         'WHITE': [255,255,255]
     };
 
@@ -78,13 +110,15 @@
 
         $("input#get_natural_colors").bind('click', function(){
 
-            set_color_scheme(natural_colors);
+            current_colors = natural_colors;
+            set_color_scheme(current_colors);
 
         });
 
         $("input#get_standard_colors").bind('click', function(){
 
-            set_color_scheme(standard_colors);
+            current_colors = standard_colors;
+            set_color_scheme(current_colors);
 
         });
 
@@ -100,6 +134,35 @@
             $('textarea#colorsettings').hide();
         });
 
+        for (color in current_colors) {
+
+            (function(){
+                var colorname = color;
+                $('td#picker_' + colorname).ColorPicker({
+                    color: {'r': current_colors[colorname][0], 'g': current_colors[colorname][1], 'b': current_colors[colorname][2]},
+                    onShow: function (colpkr) {
+                            $(colpkr).fadeIn(500);
+                            return false;
+                    },
+                    onHide: function (colpkr) {
+                            $(colpkr).fadeOut(500);
+
+                            return false;
+                    },
+                    onBeforeShow: function () {
+                        // var color = colorname;
+                        // $(this).ColorPickerSetColor({ 'r':current_colors[color][0], 'g':current_colors[color][0], 'b':current_colors[color][0] });
+                    },
+                    onChange: function (hsb, hex, rgb) {
+                        var color = colorname;
+                        // console.log(this);
+                        current_colors[color] = [rgb.r, rgb.g, rgb.b];
+                        set_color_scheme(current_colors);
+                    }
+
+                });
+            })();
+        }
     });
 </script>
 </head>
