@@ -29,19 +29,19 @@
     };
 
     var update_text_data = function(scheme) {
-            for (color in scheme) {
-                    textdata = textdata + "[" + color + '_R:' + scheme[color][0] + "]\n";
-                    textdata = textdata + "[" + color + '_G:' + scheme[color][1] + "]\n";
-                    textdata = textdata + "[" + color + '_B:' + scheme[color][2] + "]\n";
-            }
+        var textdata = '';
+        for (color in scheme) {
+                textdata = textdata + "[" + color + '_R:' + scheme[color][0] + "]\n";
+                textdata = textdata + "[" + color + '_G:' + scheme[color][1] + "]\n";
+                textdata = textdata + "[" + color + '_B:' + scheme[color][2] + "]\n";
+        }
 
-            $('#colorsettings').val(textdata);
+        $('#colorsettings').val(textdata);
     };
 
     var set_color_scheme = function(scheme) {
 
             var color;
-            var textdata = '';
 
             for (color in scheme) {
                     set_color(color, scheme[color]);
@@ -149,7 +149,7 @@
                     },
                     onHide: function (colpkr) {
                             $(colpkr).fadeOut(500);
-
+                            update_text_data(current_colors);
                             return false;
                     },
                     onBeforeShow: function () {
