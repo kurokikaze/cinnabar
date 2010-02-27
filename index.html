@@ -41,13 +41,13 @@
 
     var set_color_scheme = function(scheme) {
 
-            var color;
+            /*var color;
 
             for (color in scheme) {
                     set_color(color, scheme[color]);
             }
 
-            update_text_data(scheme);
+            update_text_data(scheme);*/
 
     };
 
@@ -110,6 +110,25 @@
 
     $(document).ready(function() {
 
+        var canvas = document.getElementById("screenshot");
+        var context = canvas.getContext("2d");
+
+        var canvas_redraw = function(color) {
+            context.fillStyle    = '#000';
+            context.fillRect  (7,   12, 7 * 80, 238);
+            context.fillStyle    = 'rgb(' + current_colors[color].join(', ') + ')';
+            context.font         = '10px "Lucida Console", monospace';
+            context.textBaseline = 'top';
+            // context.fillText  ('Hello world!', 0, 0);
+
+            for(var i = 1; i <= 22; i++) {
+                for (var j = 1; j <= 80; j++) {
+                    context.fillText('+', j*7, i*12);
+                }
+            }
+        }
+
+        canvas_redraw('DGRAY');
 
         $("input#get_natural_colors").bind('click', function(){
 
@@ -149,7 +168,7 @@
                     },
                     onHide: function (colpkr) {
                             $(colpkr).fadeOut(500);
-                            update_text_data(current_colors);
+                            // update_text_data(current_colors);
                             return false;
                     },
                     onBeforeShow: function () {
@@ -160,7 +179,8 @@
                     onChange: function (hsb, hex, rgb) {
                         var color = colorname;
                         current_colors[color] = [rgb.r, rgb.g, rgb.b];
-                        set_color(color, [rgb.r, rgb.g, rgb.b]);
+                        // set_color(color, [rgb.r, rgb.g, rgb.b]);
+                        canvas_redraw(color);
                     }
 
                 });
@@ -173,6 +193,9 @@
 
 <!--
 -->
+
+    <canvas id="screenshot"  width="960" height="226">
+    </canvas>
 
     <div id="playfield">
         <span class="back_LCYAN fore_BLACK">F</span><span class="back_LCYAN fore_BLACK">P</span><span class="back_LCYAN fore_BLACK">S</span><span class="back_LCYAN fore_BLACK">:</span><span class="back_LCYAN fore_BLACK">&nbsp;</span><span class="back_LCYAN fore_BLACK">9</span><span class="back_LCYAN fore_BLACK">9</span><span class="back_LGREEN fore_LCYAN">D</span><span class="back_LGREEN fore_LCYAN">*</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_LGRAY fore_BLACK">&nbsp;</span><span class="back_LGRAY fore_BLACK">&nbsp;</span><span class="back_LGRAY fore_BLACK">D</span><span class="back_LGRAY fore_BLACK">w</span><span class="back_LGRAY fore_BLACK">a</span><span class="back_LGRAY fore_BLACK">r</span><span class="back_LGRAY fore_BLACK">f</span><span class="back_LGRAY fore_BLACK">&nbsp;</span><span class="back_LGRAY fore_BLACK">F</span><span class="back_LGRAY fore_BLACK">o</span><span class="back_LGRAY fore_BLACK">r</span><span class="back_LGRAY fore_BLACK">t</span><span class="back_LGRAY fore_BLACK">r</span><span class="back_LGRAY fore_BLACK">e</span><span class="back_LGRAY fore_BLACK">s</span><span class="back_LGRAY fore_BLACK">s</span><span class="back_LGRAY fore_BLACK">&nbsp;</span><span class="back_LGRAY fore_BLACK">&nbsp;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BROWN fore_YELLOW">&nbsp;</span><span class="back_BROWN fore_YELLOW">I</span><span class="back_BROWN fore_YELLOW">d</span><span class="back_BROWN fore_YELLOW">l</span><span class="back_BROWN fore_YELLOW">e</span><span class="back_BROWN fore_YELLOW">r</span><span class="back_BROWN fore_YELLOW">s</span><span class="back_BROWN fore_YELLOW">&nbsp;</span><span class="back_BROWN fore_YELLOW">8</span><span class="back_BROWN fore_YELLOW">&nbsp;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><span class="back_BLACK fore_DGRAY">&#x2588;</span><br/>
