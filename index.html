@@ -23,9 +23,24 @@
 <script type="text/javascript" src="js/colorpicker.js"></script>
 <script type="text/javascript">
 
+    var saved_back_elements = {};
+    var saved_fore_elements = {};
+
+    function RGB2HTML(red, green, blue) {
+        var decColor = blue + 256 * green + 65536 * red;
+        return decColor.toString(16);
+    }
+
     var set_color = function(name, rgb) {
-        $(".back_" + name).css('background-color', 'rgb(' + rgb.join(',') + ')');
-        $(".fore_" + name).css('color', 'rgb(' + rgb.join(',') + ')');
+        //var start = (new Date()).getTime();
+        // saved_back_elements[name].css('background-color', 'rgb(' + rgb.join(',') + ')');
+        // saved_fore_elements[name].css('color', 'rgb(' + rgb.join(',') + ')');
+        saved_back_elements[name].each(function(el){this.style.background = '#' + RGB2HTML(rgb[0], rgb[1], rgb[2]);});
+        saved_fore_elements[name].each(function(el){this.style.color = '#' + RGB2HTML(rgb[0], rgb[1], rgb[2]);});
+        // $(".back_" + name).css('background-color', 'rgb(' + rgb.join(',') + ')');
+        // $(".fore_" + name).css('color', 'rgb(' + rgb.join(',') + ')');
+        //var timed = (new Date()).getTime() - start;
+        //console.log( name + ' color set in ' + timed + ' ms.');
     };
 
     var update_text_data = function(scheme) {
@@ -41,13 +56,19 @@
 
     var set_color_scheme = function(scheme) {
 
-            var color;
+        var color;
+        var start = (new Date()).getTime();
 
-            for (color in scheme) {
-                    set_color(color, scheme[color]);
-            }
+        for (color in scheme) {
+                set_color(color, scheme[color]);
+        }
 
-            update_text_data(scheme);
+        var timed = (new Date()).getTime() - start;
+      //  console.log( name + ' color set in ' + timed + ' ms.');
+
+        update_text_data(scheme);
+
+        return timed;
 
     };
 
@@ -108,7 +129,47 @@
         'WHITE': [255,255,255]
     };
 
+    var test_perf = {};
+
     $(document).ready(function() {
+
+        saved_back_elements = {
+            'BLACK': $(".back_BLACK"),
+            'BLUE': $(".back_BLUE"),
+            'GREEN': $(".back_GREEN"),
+            'CYAN': $(".back_CYAN"),
+            'RED': $(".back_RED"),
+            'MAGENTA': $(".back_MAGENTA"),
+            'BROWN': $(".back_BROWN"),
+            'LGRAY': $(".back_LGRAY"),
+            'DGRAY': $(".back_DGRAY"),
+            'LBLUE': $(".back_LBLUE"),
+            'LGREEN': $(".back_LGREEN"),
+            'LCYAN': $(".back_LCYAN"),
+            'LRED': $(".back_LRED"),
+            'LMAGENTA': $(".back_LMAGENTA"),
+            'YELLOW': $(".back_YELLOW"),
+            'WHITE': $(".back_WHITE")
+        };
+
+        saved_fore_elements = {
+            'BLACK': $(".fore_BLACK"),
+            'BLUE': $(".fore_BLUE"),
+            'GREEN': $(".fore_GREEN"),
+            'CYAN': $(".fore_CYAN"),
+            'RED': $(".fore_RED"),
+            'MAGENTA': $(".fore_MAGENTA"),
+            'BROWN': $(".fore_BROWN"),
+            'LGRAY': $(".fore_LGRAY"),
+            'DGRAY': $(".fore_DGRAY"),
+            'LBLUE': $(".fore_LBLUE"),
+            'LGREEN': $(".fore_LGREEN"),
+            'LCYAN': $(".fore_LCYAN"),
+            'LRED': $(".fore_LRED"),
+            'LMAGENTA': $(".fore_LMAGENTA"),
+            'YELLOW': $(".fore_YELLOW"),
+            'WHITE': $(".fore_WHITE")
+        };
 
 
         $("input#get_natural_colors").bind('click', function(){
@@ -166,6 +227,22 @@
                 });
             })();
         }
+
+        test_perf = function(num) {
+            var test_times_sum = 0;
+            var test_times_count = 0;
+            for (var i = 0; i < num; i++) {
+                if (i % 2 == 0) {
+                    test_times_sum += set_color_scheme(natural_colors);
+                } else {
+                    test_times_sum += set_color_scheme(standard_colors);
+                }
+                test_times_count++;
+            }
+
+            console.log('Mean time: ' + test_times_sum / test_times_count);
+        }
+
     });
 </script>
 </head>
